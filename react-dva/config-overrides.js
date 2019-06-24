@@ -12,9 +12,9 @@ module.exports = {
         addWebpackAlias({
           'react-dom': '@hot-loader/react-dom'
         }),
-        addBabelPlugin(['babel-plugin-dva-hmr']),
         addBabelPlugin(['react-hot-loader/babel']),
       )(config);
+      config.entry.unshift('react-hot-loader/patch');
     }
     return override(
       addWebpackAlias({

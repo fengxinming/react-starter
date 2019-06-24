@@ -1,11 +1,21 @@
 const { join } = require('path');
-const { override, addWebpackAlias, fixBabelImports } = require('customize-cra');
+const { override, addWebpackAlias, fixBabelImports, addBabelPlugin } = require('customize-cra');
 const { RewiredRule } = require('chain-css-loader');
 
 const resolve = (dir) => join(__dirname, '.', dir);
 
 module.exports = {
   webpack(config, env) {
+    const isDev = env === 'development';
+    if (isDev) {
+      config = override(
+        addWebpackAlias({
+          'react-dom': '@hot-loader/react-dom'
+        }),
+        addBabelPlugin(['react-hot-loader/babel']),
+      )(config);
+      config.entry.unshift('react-hot-loader/patch');
+    }
     return override(
       addWebpackAlias({
         '~': resolve('src')

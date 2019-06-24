@@ -2045,11 +2045,6 @@ babel-loader@8.0.5:
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
 
-babel-plugin-dva-hmr@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-dva-hmr/-/babel-plugin-dva-hmr-0.4.2.tgz#56cf3d49cc366fb191cd883e27ca42bddfd12735"
-  integrity sha512-QP5W0IT9LDFgoqkXD0g7wn/FMn7zO562P8qys23twXri4i3E1SGOQ3z7jqcPrqzfTZHx+Ufr+cXy9oI6OLMYZg==
-
 babel-plugin-dynamic-import-node@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.2.0.tgz#c0adfb07d95f4a4495e9aaac6ec386c4d7c2524e"

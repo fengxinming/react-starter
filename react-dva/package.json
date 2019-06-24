@@ -36,7 +36,6 @@
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.6",
-    "babel-plugin-dva-hmr": "^0.4.2",
     "babel-plugin-import": "^1.12.0",
     "chain-css-loader": "^1.1.2-beta.1",
     "customize-cra": "^0.2.13",
