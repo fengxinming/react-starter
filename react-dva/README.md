@@ -86,13 +86,13 @@ module.exports = function (config, env) {
 ```
 --
 |- components 组件
+|- constants 常量
 |- routes 自定义路由配置文件
-|- store 自定义state、action
+|- store 自定义state、mutation和action
 |- utils 常用工具
 |- views 路由对应的视图页面
-|- configure-store.js 创建redux store
 |- history.js 客户端路由
-|- index.jsx 入口文件
+|- index.js 入口文件
 |- index.styl 全局样式
 |- router.jsx 处理自定义路由配置
 |- serviceWorker.js 脚手架提供的sw注册和注销方法
@@ -104,5 +104,5 @@ npm run dev
 ```
 
 ## 注意事项
-* 安装 mobx-react@6 会导致页面加载报错
-* @observer 不能修饰 PureComponent
+* 在reducer方法中返回新对象才会触发页面数据渲染
+* dispatch 某个 reducer 或者 effect 前，需要给 type 加上命名空间前缀 `namespace/`
