@@ -1,5 +1,5 @@
 # react-redux
-> 基于 [create-react-app](https://github.com/facebook/create-react-app) 构建的 react+redux demo
+> 基于 [create-react-app](https://github.com/facebook/create-react-app) 构建的 react+mobx demo
 
 ---
 

@@ -9,7 +9,7 @@ export default function (app) {
       app,
       component: () => import('../views/login'),
       models() {
-        return [import('../store/login')];
+        return [import('../models/login')];
       }
     })
   }];
