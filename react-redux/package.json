@@ -12,7 +12,8 @@
     "react-router": "^5.0.1",
     "react-router-config": "^5.0.1",
     "react-scripts": "3.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-sam": "^1.0.1"
   },
   "scripts": {
     "dev": "react-app-rewired start",

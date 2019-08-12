@@ -13,6 +13,8 @@ export default {
     /\.styl$/,
   ],
   chainWebpack(config) {
+    const [obj] = config.module.toConfig().rules;
+    console.log(obj.test, '======', obj.use);
     const rule = new UmiRule(config, {
       modules: true
     });

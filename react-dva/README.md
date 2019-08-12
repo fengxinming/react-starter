@@ -88,7 +88,7 @@ module.exports = function (config, env) {
 |- components 组件
 |- constants 常量
 |- routes 自定义路由配置文件
-|- store 自定义state、mutation和action
+|- models 自定义state、reducers和effects
 |- utils 常用工具
 |- views 路由对应的视图页面
 |- history.js 客户端路由

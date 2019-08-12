@@ -8,5 +8,6 @@
   - [Redux Demo](react-redux)
   - [Mobx Demo](react-mobx)
   - [Dva Demo](react-dva)
+  - [Umi Demo](react-umi)
 
 ---

@@ -104,5 +104,5 @@ npm run dev
 ```
 
 ## 注意事项
-* 安装 mobx-react@6 会导致页面加载报错
+* mobx-react@6 devtools
 * @observer 不能修饰 PureComponent
