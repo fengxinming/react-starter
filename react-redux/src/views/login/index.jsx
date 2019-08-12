@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { LOGIN_DIRECTLY, LOGIN_UPDATE_FIELDS, LOGIN_UPDATE_STATE } from '~/constants/dispatch-types';
 import history from '~/history';
+import { sam } from '../../store';
 
 const iconStyle = { color: 'rgba(0,0,0,.25)' };
 
@@ -14,7 +15,7 @@ function hasErrors(fieldsError) {
 class LoginComponent extends PureComponent {
   componentDidMount() {
     setTimeout(() => {
-      this.props.dispatch(LOGIN_UPDATE_STATE, {
+      sam.commit(LOGIN_UPDATE_STATE, {
         disabledUsername: false,
         disabledPassword: false
       });
@@ -27,7 +28,7 @@ class LoginComponent extends PureComponent {
     const { validateFields, setFields } = this.props.form;
     validateFields((error, values) => {
       if (!error) {
-        this.props.dispatch(LOGIN_DIRECTLY, null, true)
+        sam.dispatch(LOGIN_DIRECTLY)
           .then(() => {
             history.push('/');
           })
@@ -114,7 +115,7 @@ const LoginForm = Form.create({
     };
   },
   onValuesChange(props, values) {
-    props.dispatch(LOGIN_UPDATE_FIELDS, values);
+    sam.commit(LOGIN_UPDATE_FIELDS, values);
   }
 })(LoginComponent);
 

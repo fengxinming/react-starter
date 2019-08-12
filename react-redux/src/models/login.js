@@ -35,17 +35,17 @@ export default {
     }
   },
   actions: {
-    async [LOGIN_DIRECTLY]({ getState, dispatch }) {
+    async [LOGIN_DIRECTLY]({ state, commit }) {
       // 按钮上出现loading
-      dispatch(LOGIN_UPDATE_STATE, { isLogging: true });
+      commit(LOGIN_UPDATE_STATE, { isLogging: true });
 
-      const { username, password } = getState().login.fields;
+      const { username, password } = state.fields;
       if (username === 'admin' && password === 'admin') {
         await sleep(2000);
-        dispatch(LOGIN_SUCCESS);
+        commit(LOGIN_SUCCESS);
         return { code: 200 };
       } else {
-        dispatch(LOGIN_UPDATE_STATE, { isLogging: false });
+        commit(LOGIN_UPDATE_STATE, { isLogging: false });
         return Promise.reject({ code: 401, message: '用户名或者密码错误' });
       }
     }
