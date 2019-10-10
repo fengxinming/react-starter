@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import Counter from './components/Counter';
 import * as serviceWorker from './serviceWorker';
-import { store } from './store';
+import store from './store';
+
+Object.defineProperty(Component.prototype, '$store', {
+  get() {
+    return store;
+  }
+});
 
 ReactDOM.render(
-  (<Provider store={store}>
-    <Counter />
-  </Provider>)
+  <Counter />
   , document.getElementById('root')
 );
 

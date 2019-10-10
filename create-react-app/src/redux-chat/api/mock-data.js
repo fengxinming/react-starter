@@ -2,31 +2,31 @@ module.exports = [
   {
     id: 'm_1',
     threadID: 't_1',
-    threadName: '夯先生影视资源VIP群1',
+    threadName: 'Vue技术群',
     authorName: '杨伟',
-    text: '最近有新资源吗?',
+    text: 'Vue3.0出来了，准备入坑了吗?',
     timestamp: Date.now() - 99999
   },
   {
     id: 'm_2',
     threadID: 't_1',
-    threadName: '夯先生影视资源VIP群1',
+    threadName: 'Vue技术群',
     authorName: '杨伟',
-    text: 'OL 或 MILF 系列.',
+    text: '感觉自己快学不动了...',
     timestamp: Date.now() - 89999
   },
   {
     id: 'm_3',
     threadID: 't_1',
-    threadName: '夯先生影视资源VIP群1',
+    threadName: 'Vue技术群',
     authorName: '罗体仁',
-    text: 'Stewardess 系列怎么样?',
+    text: '准备转行买炒粉!',
     timestamp: Date.now() - 79999
   },
   {
     id: 'm_4',
     threadID: 't_2',
-    threadName: '狼友交流会',
+    threadName: 'React技术群',
     authorName: '李建仁',
     text: 'Hey 老铁, 这里有好多学生妹，过来 high 吗?',
     timestamp: Date.now() - 69999
@@ -34,7 +34,7 @@ module.exports = [
   {
     id: 'm_5',
     threadID: 't_2',
-    threadName: '狼友交流会',
+    threadName: 'React技术群',
     authorName: '毕云涛',
     text: '哪个酒吧？把坐标发我一下.',
     timestamp: Date.now() - 59999
@@ -52,7 +52,7 @@ module.exports = [
     threadID: 't_3',
     threadName: '前端技术交流',
     authorName: '吴观生',
-    text: '随便选一个，反正你都不会!',
+    text: 'jQuery大法好啊...',
     timestamp: Date.now() - 39999
   },
   {
@@ -60,7 +60,7 @@ module.exports = [
     threadID: 't_3',
     threadName: '前端技术交流',
     authorName: '韦君智',
-    text: '我艹，你怎么不去屎',
+    text: '代码太简单了，绩效指标达不到...',
     timestamp: Date.now() - 29999
   }
 ]

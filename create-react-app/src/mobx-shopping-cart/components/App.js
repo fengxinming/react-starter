@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import ProductList from './ProductList.js'
-import ShoppingCart from './ShoppingCart.js'
+import ProductList from './ProductList'
+import ShoppingCart from './ShoppingCart'
 
 class App extends PureComponent {
   render() {

@@ -1,21 +1,56 @@
-import { createStore, applyMiddleware } from 'redux';
-import { reducer, middleware, Sam, createHelpers } from 'redux-sam';
-import { mutations, STORAGE_KEY } from './mutations';
-import actions from './actions';
-import plugins from './plugins';
+import { observable, computed, action, autorun, toJS } from 'mobx';
 
-const sam = new Sam({
-  state: {
-    todos: JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]'),
-    todosChanged: 0
-  },
-  actions,
-  mutations,
-  plugins
-});
+export const STORAGE_KEY = 'todos-react';
 
-const { mapActions, mapMutations } = createHelpers(sam);
+class MVCStore {
+  constructor() {
+    autorun(() => {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(toJS(this.todos)))
+    });
+  }
 
-const store = createStore(reducer(sam), sam.state, applyMiddleware(middleware(sam)));
+  @observable todos = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || '[]')
 
-export { store, sam, mapActions, mapMutations };
+  @computed get computedTodos() {
+    const { todos } = this;
+    const len = todos.length;
+    let remaining = 0;
+    let allChecked = 0;
+    todos.forEach((todo) => {
+      allChecked += todo.done ? 1 : 0;
+      remaining += todo.done ? 0 : 1;
+    });
+    allChecked = allChecked === len;
+    return { remaining, allChecked };
+  }
+
+  @action addTodo(text) {
+    this.todos.push({ text, done: false });
+  }
+
+  @action removeTodo(todo) {
+    const { todos } = this;
+    const index = todos.indexOf(todo);
+    if (index > -1) {
+      todos.splice(index, 1);
+    }
+  }
+
+  @action updateTodo(todo, additional) {
+    const { todos } = this;
+    const index = todos.indexOf(todo);
+    if (index > -1) {
+      todos.splice(index, 1, Object.assign({}, todo, additional));
+    }
+  }
+
+  @action toggleAll(allChecked) {
+    this.todos = this.todos.map(todo => ({ text: todo.text, done: allChecked }));
+  }
+
+  @action.bound clearCompleted() {
+    this.todos = this.todos.filter(todo => !todo.done);
+  }
+}
+
+export default new MVCStore();

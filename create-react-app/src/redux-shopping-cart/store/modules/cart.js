@@ -12,10 +12,10 @@ const state = {
 const actions = {
   checkout({ commit, state }, products) {
     // const savedCartItems = [...state.items]
-    const savedCartItems = state.items
+    let { items: savedCartItems, itemsChanged } = state
     commit('setCheckoutStatus', null)
     // empty cart
-    commit('setCartItems', { items: [] })
+    commit('setCartItems', { items: [], itemsChanged: itemsChanged++ })
     shop.buyProducts(
       products,
       () => commit('setCheckoutStatus', 'successful'),

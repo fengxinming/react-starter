@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import map from 'celia/map';
 import Thread from '../Thread';
-import { getUnreadCount, getCurrentThread } from '../../store/getter';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react';
 
+@observer
 class ThreadSection extends Component {
-  constructor(props) {
-    super(props);
-    this.$mapActions(['switchThread']);
-  }
 
   render() {
-    const { threads, currentThreadID } = this.props;
-    const unreadCount = getUnreadCount(threads);
-    const currentThread = getCurrentThread(threads, currentThreadID);
+    const { currentThread, unreadCount, threads } = this.$store;
 
     return (
       <div className="thread-section">
@@ -29,7 +23,7 @@ class ThreadSection extends Component {
                 key={thread.id}
                 thread={thread}
                 active={thread.id === currentThread.id}
-                switchThread={this.switchThread}>
+                switchThread={this.$store.switchThread}>
               </Thread>
             ))
           }
@@ -39,8 +33,4 @@ class ThreadSection extends Component {
   }
 }
 
-export default connect(state => ({
-  threads: state.threads,
-  threadsChanged: state.threadsChanged,
-  currentThreadID: state.currentThreadID
-}))(ThreadSection);
+export default ThreadSection;

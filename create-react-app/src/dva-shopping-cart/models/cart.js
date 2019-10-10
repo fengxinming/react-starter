@@ -19,7 +19,7 @@ const effects = {
     // empty cart
     yield put({
       type: 'setCartItems',
-      payload: { items: [] }
+      payload: { items: [], itemsChanged: itemsChanged++ }
     })
     try {
       yield call(shop.buyProducts, products);

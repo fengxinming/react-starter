@@ -10,7 +10,7 @@ export default {
     })
   },
 
-  sendMessage: ({ commit }, payload) => {
+  sendMessage({ commit }, payload) {
     createMessage(payload, message => {
       commit('receiveMessage', message);
     })

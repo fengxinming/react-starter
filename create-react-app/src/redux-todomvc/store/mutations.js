@@ -19,8 +19,8 @@ export const mutations = {
       // 不触发组件更新
       return false;
     }
-    // state.todos = todos.slice(0, index).concat(todos.slice(index + 1));
-    state.todos.splice(index, 1);
+    // todos = todos.slice(0, index).concat(todos.slice(index + 1));
+    todos.splice(index, 1);
     state.todosChanged--;
   },
 
@@ -28,7 +28,7 @@ export const mutations = {
     const { todos } = state;
     const index = todos.indexOf(todo);
     // state.todos = todos.slice(0, index).concat(newTodo, todos.slice(index + 1));
-    state.todos.splice(index, 1, newTodo);
+    todos.splice(index, 1, newTodo);
     state.todosChanged--;
   },
 

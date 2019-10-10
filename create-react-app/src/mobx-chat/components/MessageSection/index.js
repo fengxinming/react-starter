@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Message from '../Message';
-import { getCurrentThread, getSortedMessages } from '../../store/getter';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react';
 
+@observer
 class MessageSection extends Component {
   constructor(props) {
     super(props);
@@ -15,12 +15,12 @@ class MessageSection extends Component {
 
   sendMessage = (e) => {
     const text = e.target.value;
-    const { thread } = this.props;
     if (text.trim()) {
-      this.setState({ text: '' });
-      this.$sam.dispatch('sendMessage', {
+      const { currentThread } = this.$store;
+      this.setState({ text: '', lastMessageId: currentThread.lastMessage.id });
+      this.$store.sendMessage({
         text,
-        thread
+        thread: currentThread
       });
     }
   }
@@ -39,22 +39,22 @@ class MessageSection extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
+    if (!this.state.text &&
+      this.state.lastMessageId !== this.$store.currentThread.lastMessage.id) {
       const ul = this.refs.list;
       ul.scrollTop = ul.scrollHeight;
     }
   }
 
   render() {
-    const { thread, threads, currentThreadID, messages } = this.props;
-    const msgs = getSortedMessages(threads, currentThreadID, messages);
+    const { sortedMessages, currentThread } = this.$store;
 
     return (
       <div className="message-section">
-        <h3 className="message-thread-heading">{thread.name}</h3>
+        <h3 className="message-thread-heading">{currentThread.name}</h3>
         <ul className="message-list" ref="list">
           {
-            msgs.map(message => (
+            sortedMessages.map(message => (
               <Message
                 key={message.id}
                 message={message}>
@@ -72,9 +72,4 @@ class MessageSection extends Component {
   }
 }
 
-export default connect(state => ({
-  threads: state.threads,
-  currentThreadID: state.currentThreadID,
-  messages: state.messages,
-  thread: getCurrentThread(state.threads, state.currentThreadID)
-}))(MessageSection);
+export default MessageSection;

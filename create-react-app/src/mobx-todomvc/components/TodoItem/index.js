@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { mapActions } from '../../store'
 
 class TodoItem extends PureComponent {
   constructor(props) {
@@ -9,30 +8,26 @@ class TodoItem extends PureComponent {
       editing: false,
       text: ''
     };
-
-    mapActions(this, [
-      'editTodo',
-      'toggleTodo',
-      'removeTodo'
-    ])
   }
 
-  doneEdit = () => {
+  cancelEdit = () => {
+    this.setState({ editing: false, text: '' });
+  }
+
+  onEditDone = () => {
     const value = this.state.text;
     const { todo } = this.props;
 
     if (this.state.editing) {
       if (!value) {
-        this.removeTodo(todo);
-      } else {
-        this.editTodo({ todo, value });
+        this.$store.removeTodo(todo);
+      } else if (todo.text !== value) {
+        this.$store.updateTodo(todo, {
+          text: value
+        });
       }
-      this.setState({ editing: false, text: '' });
+      this.cancelEdit();
     }
-  }
-
-  cancelEdit = () => {
-    this.setState({ editing: false, text: '' });
   }
 
   onEdit = () => {
@@ -42,9 +37,9 @@ class TodoItem extends PureComponent {
   }
 
   onEnter = (e) => {
-    switch (e.swith || e.keyCode) {
+    switch (e.switch || e.keyCode) {
       case 13: // Enter
-        this.doneEdit(e);
+        this.onEditDone(e);
         break;
       case 27: // Esc
         this.cancelEdit(e);
@@ -57,9 +52,8 @@ class TodoItem extends PureComponent {
     this.setState({ text: e.target.value });
   }
 
-  onRemove = (todo) => {
-    this.setState({ editing: false, text: '' });
-    this.removeTodo(todo);
+  onToggleTodo(todo) {
+    this.$store.updateTodo(todo, { done: !todo.done });
   }
 
   render() {
@@ -71,9 +65,9 @@ class TodoItem extends PureComponent {
           <input className="toggle"
             type="checkbox"
             checked={todo.done}
-            onChange={() => this.toggleTodo(todo)} />
+            onChange={() => this.onToggleTodo(todo)} />
           <label onDoubleClick={this.onEdit}>{todo.text}</label>
-          <button className="destroy" onClick={() => this.onRemove(todo)}></button>
+          <button className="destroy" onClick={() => this.$store.removeTodo(todo)}></button>
         </div>
         <input className="edit"
           ref="textField"
@@ -81,7 +75,7 @@ class TodoItem extends PureComponent {
           onChange={this.onChangeInput}
           value={this.state.text}
           onKeyUp={this.onEnter}
-          onBlur={this.doneEdit} />
+          onBlur={this.onEditDone} />
       </li>
     );
   }

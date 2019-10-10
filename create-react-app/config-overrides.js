@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { join } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { override, addWebpackAlias, fixBabelImports } = require('customize-cra');
+const { override, addWebpackAlias, fixBabelImports, addDecoratorsLegacy } = require('customize-cra');
 const { RewiredRule } = require('chain-css-loader');
 const { DefinePlugin } = require('webpack');
 
@@ -59,6 +59,7 @@ module.exports = {
       addWebpackAlias({
         '~': appSrc
       }),
+      addDecoratorsLegacy(),
       fixBabelImports('import', {
         libraryName: 'antd',
         libraryDirectory: 'es',

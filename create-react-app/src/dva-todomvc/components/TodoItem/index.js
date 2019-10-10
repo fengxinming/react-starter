@@ -56,7 +56,7 @@ class TodoItem extends PureComponent {
   }
 
   onEnter = (e) => {
-    switch (e.swith || e.keyCode) {
+    switch (e.switch || e.keyCode) {
       case 13: // Enter
         this.doneEdit(e);
         break;
