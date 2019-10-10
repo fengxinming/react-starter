@@ -1,4 +1,4 @@
-# react-starter
+# react-demos
 > a collection of simple demos with React.js
 
 ---
@@ -16,5 +16,10 @@
       - [Shopping Cart](create-react-app/src/dva-shopping-cart)
       - [TodoMVC](create-react-app/src/dva-todomvc)
       - [FluxChat](create-react-app/src/dva-chat)
+    - Mobx
+      - [Counter](create-react-app/src/mobx-counter)
+      - [Shopping Cart](create-react-app/src/mobx-shopping-cart)
+      - [TodoMVC](create-react-app/src/mobx-todomvc)
+      - [FluxChat](create-react-app/src/mobx-chat)
 
 ---
