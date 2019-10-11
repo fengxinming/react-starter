@@ -7,7 +7,8 @@ class Counter extends Component {
   constructor(props) {
     super(props);
 
-    this.$mapActions(['increment', 'decrement', 'incrementIfOdd', 'incrementAsync']);
+    this.$mapActions(['incrementIfOdd', 'incrementAsync']);
+    this.$mapMutations(['increment', 'decrement']);
   }
 
   render() {

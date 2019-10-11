@@ -3,7 +3,6 @@
 import React, { PureComponent } from 'react';
 import map from 'celia/map';
 import { connect } from 'react-redux';
-import { mapActions, sam } from '../../store';
 import TodoItem from '../TodoItem';
 
 const filters = {
@@ -21,7 +20,7 @@ class App extends PureComponent {
       visibility: 'all',
     }
 
-    mapActions(this, [
+    this.$mapActions([
       'toggleAll',
       'clearCompleted'
     ]);
@@ -35,7 +34,7 @@ class App extends PureComponent {
     if ((e.switch || e.keyCode) === 13) {
       const text = e.target.value;
       if (text.trim()) {
-        sam.dispatch('addTodo', text);
+        this.$sam.commit('addTodo', { text, done: false });
       }
       e.target.value = '';
     }

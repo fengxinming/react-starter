@@ -1,6 +1,7 @@
 import { createStore } from 'redux-sam';
 import { Component } from 'react';
 import createLogger from 'redux-sam/logger';
+import sleep from 'celia/sleep';
 
 const state = {
   count: 0
@@ -16,20 +17,14 @@ const mutations = {
 }
 
 const actions = {
-  increment: ({ commit }) => commit('increment'),
-  decrement: ({ commit }) => commit('decrement'),
   incrementIfOdd({ commit, state }) {
     if ((state.count + 1) % 2 === 0) {
       commit('increment')
     }
   },
-  incrementAsync({ commit }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        commit('increment')
-        resolve()
-      }, 1000)
-    })
+  async incrementAsync({ commit }) {
+    await sleep(1000)
+    commit('increment')
   }
 }
 

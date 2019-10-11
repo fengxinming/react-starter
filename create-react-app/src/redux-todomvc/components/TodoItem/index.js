@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { mapActions } from '../../store'
 
 class TodoItem extends PureComponent {
   constructor(props) {
@@ -10,14 +9,16 @@ class TodoItem extends PureComponent {
       text: ''
     };
 
-    mapActions(this, [
+    this.$mapActions([
       'editTodo',
-      'toggleTodo',
+      'toggleTodo'
+    ]);
+    this.$mapMutations([
       'removeTodo'
-    ])
+    ]);
   }
 
-  doneEdit = () => {
+  onEdited = () => {
     const value = this.state.text;
     const { todo } = this.props;
 
@@ -44,7 +45,7 @@ class TodoItem extends PureComponent {
   onEnter = (e) => {
     switch (e.switch || e.keyCode) {
       case 13: // Enter
-        this.doneEdit(e);
+        this.onEdited(e);
         break;
       case 27: // Esc
         this.cancelEdit(e);
@@ -81,7 +82,7 @@ class TodoItem extends PureComponent {
           onChange={this.onChangeInput}
           value={this.state.text}
           onKeyUp={this.onEnter}
-          onBlur={this.doneEdit} />
+          onBlur={this.onEdited} />
       </li>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { currency } from '../currency';
 import { connect } from 'react-redux';
-import { cartTotalPrice, cartProducts } from '../store/getters';
 import { Button } from 'antd';
 
 class ShoppingCart extends Component {
@@ -11,7 +10,7 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    const { products, checkoutStatus } = this.props;
+    const { products, checkoutStatus, totalPrice } = this.props;
     const len = products.length;
 
     return (
@@ -25,7 +24,7 @@ class ShoppingCart extends Component {
             </li>
           ))}
         </ul>
-        <p>Total: {currency(cartTotalPrice(products))}</p>
+        <p>Total: {currency(totalPrice)}</p>
         <p><Button type="primary" disabled={!len} onClick={() => this.checkout(products)}>Checkout</Button></p>
         <p style={{ display: checkoutStatus ? 'block' : 'none' }}>Checkout {checkoutStatus}.</p>
       </div>
@@ -34,8 +33,23 @@ class ShoppingCart extends Component {
 }
 
 export default connect(state => {
+  const products = state.products.all;
+  const { items } = state.cart;
+  const cartProducts = items.map(({ id, quantity }) => {
+    const product = products.find(product => product.id === id)
+    return {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity
+    };
+  });
+
   return {
-    products: cartProducts(state.cart.items, state.products.all),
-    checkoutStatus: state.cart.checkoutStatus
+    products: cartProducts,
+    checkoutStatus: state.cart.checkoutStatus,
+    totalPrice: cartProducts.reduce((total, product) => {
+      return total + product.price * product.quantity
+    }, 0)
   };
 })(ShoppingCart);
