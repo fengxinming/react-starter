@@ -1,14 +1,14 @@
+import 'todomvc-app-css/index.css';
 import React, { PureComponent } from 'react';
 import map from 'celia/map';
-import { connect } from 'react-redux';
-import TodoItem from '../TodoItem';
+import { connect } from 'dva';
+import TodoItem from './TodoItem';
 
 const filters = {
   all: todos => todos,
   active: todos => todos.filter(todo => !todo.done),
   completed: todos => todos.filter(todo => todo.done)
 }
-
 
 class App extends PureComponent {
   constructor(props) {
@@ -17,11 +17,19 @@ class App extends PureComponent {
     this.state = {
       visibility: 'all',
     }
+  }
 
-    this.$mapActions([
-      'toggleAll',
-      'clearCompleted'
-    ]);
+  toggleAll(allChecked) {
+    this.props.dispatch({
+      type: 'todomvc/toggleAll',
+      payload: allChecked
+    });
+  }
+
+  clearCompleted = () => {
+    this.props.dispatch({
+      type: 'todomvc/clearCompleted'
+    });
   }
 
   pluralize = (n, w) => n === 1 ? w : (w + 's')
@@ -32,7 +40,7 @@ class App extends PureComponent {
     if ((e.switch || e.keyCode) === 13) {
       const text = e.target.value;
       if (text.trim()) {
-        this.$sam.commit('addTodo', { text, done: false });
+        this.props.dispatch({ type: 'todomvc/addTodo', payload: text });
       }
       e.target.value = '';
     }
@@ -49,7 +57,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const todos = this.props.todos;
+    const { todos, dispatch } = this.props;
     const len = todos.length;
     let remaining = 0;
     let allChecked = 0;
@@ -86,6 +94,7 @@ class App extends PureComponent {
                 <TodoItem
                   key={index}
                   todo={todo}
+                  dispatch={dispatch}
                 />
               ))
             }
@@ -102,7 +111,7 @@ class App extends PureComponent {
             {
               map(filters, (val, key) => (
                 <li key={key}>
-                  <a href={'#/' + key}
+                  <a href
                     className={this.state.visibility === key ? 'selected' : ''}
                     onClick={() => this.onSetVisibility(key)}>{this.capitalize(key)}</a>
                 </li>
@@ -120,6 +129,6 @@ class App extends PureComponent {
 }
 
 export default connect(state => ({
-  todosChanged: state.todosChanged,
-  todos: state.todos
+  todosChanged: state.todomvc.todosChanged,
+  todos: state.todomvc.todos
 }))(App);

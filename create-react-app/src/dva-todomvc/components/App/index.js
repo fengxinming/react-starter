@@ -1,5 +1,3 @@
-//<style src="todomvc-app-css/index.css"></style>
-
 import React, { PureComponent } from 'react';
 import map from 'celia/map';
 import { connect } from 'dva';
